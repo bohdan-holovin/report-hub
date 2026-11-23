@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SmidaTestProject
+    name: ReportHub
   jpa:
     hibernate:
       ddl-auto: update
@@ -8,13 +8,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/smidadb
+    url: jdbc:postgresql://localhost:5432/reporthub
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   data:
     mongodb:
-      uri: mongodb://admin:admin@localhost:27017/smidadb?authSource=admin
+      uri: mongodb://admin:admin@localhost:27017/reporthub?authSource=admin
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 

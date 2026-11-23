@@ -1,0 +1,94 @@
+package com.holovin.reporthub.controller.mapper;
+
+import com.holovin.reporthub.controller.dto.company.request.CompanyCreateRequestDto;
+import com.holovin.reporthub.controller.dto.company.request.CompanyUpdateRequestDto;
+import com.holovin.reporthub.controller.dto.company.response.CompanyResponseDto;
+import com.holovin.reporthub.model.Company;
+import com.holovin.reporthub.utils.RandomUtils;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class CompanyDtoMapperTest {
+
+    @Test
+    void shouldMapCompanyToCompanyResponseDto() {
+        // Given
+        Company testCompany = RandomUtils.createRandomCompany();
+        CompanyResponseDto expectedDto = new CompanyResponseDto(
+                testCompany.getId(),
+                testCompany.getName(),
+                testCompany.getRegistrationNumber(),
+                testCompany.getAddress(),
+                testCompany.getCreatedAt()
+        );
+
+        // When
+        CompanyResponseDto actualDto = CompanyDtoMapper.toCompanyResponseDto(testCompany);
+
+        // Then
+        assertThat(actualDto).isEqualTo(expectedDto);
+    }
+
+    @Test
+    void shouldMapCompanyListToCompanyResponseDtoList() {
+        // Given
+        List<Company> testCompanies = List.of(RandomUtils.createRandomCompany(), RandomUtils.createRandomCompany());
+        List<CompanyResponseDto> expected = testCompanies.stream()
+                .map(company -> new CompanyResponseDto(
+                        company.getId(),
+                        company.getName(),
+                        company.getRegistrationNumber(),
+                        company.getAddress(),
+                        company.getCreatedAt()
+                ))
+                .collect(Collectors.toList());
+
+        // When
+        List<CompanyResponseDto> actual = CompanyDtoMapper.toCompanyResponseDtoList(testCompanies);
+
+        // Then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldMapCompanyCreateRequestDtoToCompany() {
+        // Given
+        Company expectedCompany = RandomUtils.createRandomCompany();
+        CompanyCreateRequestDto requestDto = new CompanyCreateRequestDto();
+        requestDto.setName(expectedCompany.getName());
+        requestDto.setRegistrationNumber(expectedCompany.getRegistrationNumber());
+        requestDto.setAddress(expectedCompany.getAddress());
+
+        // When
+        Company actualCompany = CompanyDtoMapper.toCompany(requestDto);
+
+        // Then
+        assertThat(actualCompany.getName()).isEqualTo(expectedCompany.getName());
+        assertThat(actualCompany.getRegistrationNumber()).isEqualTo(expectedCompany.getRegistrationNumber());
+        assertThat(actualCompany.getAddress()).isEqualTo(expectedCompany.getAddress());
+    }
+
+    @Test
+    void shouldMapCompanyUpdateRequestDtoToCompany() {
+        // Given
+        Company expectedCompany = RandomUtils.createRandomCompany();
+        CompanyUpdateRequestDto requestDto = new CompanyUpdateRequestDto();
+        requestDto.setId(expectedCompany.getId());
+        requestDto.setName(expectedCompany.getName());
+        requestDto.setRegistrationNumber(expectedCompany.getRegistrationNumber());
+        requestDto.setAddress(expectedCompany.getAddress());
+
+        // When
+        Company actualCompany = CompanyDtoMapper.toCompany(requestDto);
+
+        // Then
+        assertThat(actualCompany.getId()).isEqualTo(expectedCompany.getId());
+        assertThat(actualCompany.getName()).isEqualTo(expectedCompany.getName());
+        assertThat(actualCompany.getRegistrationNumber()).isEqualTo(expectedCompany.getRegistrationNumber());
+        assertThat(actualCompany.getAddress()).isEqualTo(expectedCompany.getAddress());
+    }
+}

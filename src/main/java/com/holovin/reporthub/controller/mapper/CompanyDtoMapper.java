@@ -1,0 +1,45 @@
+package com.holovin.reporthub.controller.mapper;
+
+import com.holovin.reporthub.controller.dto.company.request.CompanyCreateRequestDto;
+import com.holovin.reporthub.controller.dto.company.request.CompanyUpdateRequestDto;
+import com.holovin.reporthub.controller.dto.company.response.CompanyResponseDto;
+import com.holovin.reporthub.model.Company;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CompanyDtoMapper {
+
+    public static CompanyResponseDto toCompanyResponseDto(Company company) {
+        return new CompanyResponseDto(
+                company.getId(),
+                company.getName(),
+                company.getRegistrationNumber(),
+                company.getAddress(),
+                company.getCreatedAt()
+        );
+    }
+
+    public static List<CompanyResponseDto> toCompanyResponseDtoList(List<Company> companies) {
+        return companies.stream()
+                .map(CompanyDtoMapper::toCompanyResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    public static Company toCompany(CompanyCreateRequestDto createRequestDto) {
+        Company company = new Company();
+        company.setName(createRequestDto.getName());
+        company.setAddress(createRequestDto.getAddress());
+        company.setRegistrationNumber(createRequestDto.getRegistrationNumber());
+        return company;
+    }
+
+    public static Company toCompany(CompanyUpdateRequestDto updateRequestDto) {
+        Company company = new Company();
+        company.setId(updateRequestDto.getId());
+        company.setName(updateRequestDto.getName());
+        company.setAddress(updateRequestDto.getAddress());
+        company.setRegistrationNumber(updateRequestDto.getRegistrationNumber());
+        return company;
+    }
+}

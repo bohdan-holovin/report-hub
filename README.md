@@ -1,14 +1,15 @@
-# Smida Test Project
+# ReportHub
 
 ## Table of Contents
 - [Introduction](#introduction)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Architecture](#architecture)
-- [Test Coverage](#test-coverage)
+- [Tests](#tests)
 
 ## Introduction
-The project consists in the development of a RESTful service for the management of company data and their reporting for the Agency for the Development of the Infrastructure of the Stock Market of Ukraine (SMIDA). The project includes CRUD operations for companies and their reports, authentication and authorization, database migrations, unit and integration tests, docker compose for deployment, startup instructions.  This project includes features like JWT-based authentication, user and company management, and API documentation using Swagger.
+
+RESTful API for managing companies and their financial reports. The service provides CRUD operations, JWT authentication and authorization, database migrations, API documentation, and automated tests.
 
 ## Technologies
 - **Java 17**
@@ -35,14 +36,22 @@ The application follows Model-View-Controller architecture with clear separation
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/bohdan-holovin/smida-test-project.git
-cd smida-test-project
+git clone https://github.com/bohdan-holovin/report-hub.git
+cd report-hub
+```
+
+### Start the Databases
+
+For a local build and run, start PostgreSQL and MongoDB first:
+
+```bash
+docker compose up -d postgres-db mongo-db
 ```
 
 ### Build the Project
 To build the project, run the following command:
 ```bash
-mvn clean install
+./mvnw clean package
 ```
 
 ### Run the Application
@@ -50,13 +59,13 @@ You can run the application locally using Maven or Docker Compose.
 
 #### Using Maven
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 #### Using Docker Compose
 Ensure Docker is installed and running on your machine. Then, run the following command:
 ```bash
-docker-compose up
+docker compose up --build
 ```
 
 This command will start the application and all required services defined in the `docker-compose.yml` file.
@@ -80,15 +89,12 @@ This command will start the application and all required services defined in the
     curl -X GET "http://localhost:8080/companies" -H "Authorization: Bearer your_jwt_token"
     ```
 
-By following these detailed instructions, you should be able to set up, run, and interact with the Smida Test Project successfully.
 
-## Test Coverage
-The `smida-test-project` has been rigorously tested to ensure high code quality and reliability. The test coverage statistics are as follows:
 
-- **Overall Coverage**:
-   - **Classes**: 97%
-   - **Methods**: 98%
-   - **Lines**: 98%
+## Tests
 
-![img.png](img.png)
+The project includes unit tests, MVC tests, and repository integration tests. PostgreSQL and MongoDB must be available for the full test suite.
 
+```bash
+./mvnw test
+```

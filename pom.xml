@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.holovin</groupId>
-    <artifactId>smida-test-project</artifactId>
+    <artifactId>report-hub</artifactId>
     <version>1.0</version>
-    <name>smida-test-project</name>
-    <description>smida-test-project</description>
+    <name>ReportHub</name>
+    <description>REST API for company management and financial reporting</description>
     <properties>
         <java.version>17</java.version>
     </properties>
